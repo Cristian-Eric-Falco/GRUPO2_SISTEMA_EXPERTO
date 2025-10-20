@@ -1,3 +1,7 @@
+import collections
+import collections.abc
+collections.Mapping = collections.abc.Mapping
+
 import streamlit as st
 from engine import BodyTypeEngine
 from collections.abc import Mapping
@@ -237,5 +241,6 @@ if submitted:
 
 
         st.graphviz_chart(dot)
+
 
 
