@@ -102,20 +102,19 @@ if submitted:
 
     
     with st.container(border=True):
-        st.markdown("<h3 style='text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
+         st.markdown("<h3 style='text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
         
-        # DEFINE LA RUTA BASE AQUÍ
-        ruta_base = "imagenes/" 
+         ruta_base = "imagenes/" 
         
-        col1, col2, col3 = st.columns([1.3, 1, 1.3])
-        with col2:
-            if tipo in ['ectomorfo', 'mesomorfo', 'endomorfo']:
+         col1, col2, col3 = st.columns([1.3, 1, 1.3])
+         with col2:
+             if tipo in ['ectomorfo', 'mesomorfo', 'endomorfo']:
                 
-                # CORRECCIÓN: Pasa la ruta combinada como el primer argumento
-                st.image(ruta_base + f"{tipo}.jpg", use_container_width=True)
+                
+                 st.image(ruta_base + f"{tipo}.jpg", use_container_width=True)
 
 
-        with st.expander("Ver recomendaciones de entrenamiento y nutrición 🏋️‍♂️"):
+    with st.expander("Ver recomendaciones de entrenamiento y nutrición 🏋️‍♂️"):
                if tipo == 'ectomorfo':
                    st.markdown("""
                    **Objetivo Principal:** Ganar masa muscular.
@@ -241,6 +240,7 @@ if submitted:
 
 
         st.graphviz_chart(dot)
+
 
 
 
