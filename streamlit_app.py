@@ -101,7 +101,7 @@ if submitted:
                 # (Usamos un f-string para simplificar y un 'if' para evitar errores
                 # si el 'tipo' es 'indeterminado')
                 if tipo in ['ectomorfo', 'mesomorfo', 'endomorfo']:
-                    st.image("/content/drive/MyDrive/UNICABA/3° Cuatrimestre/Analisis de datos 2/Proyecto sistema experto/Imagenes/" + f"{tipo}.jpg", use_container_width=True)
+                    st.image(ruta_base = "imagenes/" + f"{tipo}.jpg", use_container_width=True)
 
 
         with st.expander("Ver recomendaciones de entrenamiento y nutrición 🏋️‍♂️"):
@@ -230,3 +230,4 @@ if submitted:
 
 
         st.graphviz_chart(dot)
+
