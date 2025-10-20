@@ -96,12 +96,19 @@ if submitted:
 
             col1, col2, col3 = st.columns([1.3, 1, 1.3])
 
-            with col2:
-                # Rellenando la lógica de la imagen
-                # (Usamos un f-string para simplificar y un 'if' para evitar errores
-                # si el 'tipo' es 'indeterminado')
-                if tipo in ['ectomorfo', 'mesomorfo', 'endomorfo']:
-                    st.image(ruta_base = "imagenes/" + f"{tipo}.jpg", use_container_width=True)
+    
+    with st.container(border=True):
+        st.markdown("<h3 style='text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
+        
+        # DEFINE LA RUTA BASE AQUÍ
+        ruta_base = "imagenes/" 
+        
+        col1, col2, col3 = st.columns([1.3, 1, 1.3])
+        with col2:
+            if tipo in ['ectomorfo', 'mesomorfo', 'endomorfo']:
+                
+                # CORRECCIÓN: Pasa la ruta combinada como el primer argumento
+                st.image(ruta_base + f"{tipo}.jpg", use_container_width=True)
 
 
         with st.expander("Ver recomendaciones de entrenamiento y nutrición 🏋️‍♂️"):
@@ -230,4 +237,5 @@ if submitted:
 
 
         st.graphviz_chart(dot)
+
 
