@@ -1,10 +1,8 @@
 import collections
 import collections.abc
 collections.Mapping = collections.abc.Mapping
-
 import streamlit as st
 from engine import BodyTypeEngine
-from collections.abc import Mapping
 import graphviz
 
 st.set_page_config(
@@ -248,6 +246,7 @@ if submitted:
                 dot.edge(p_node, tipo_node, color=edge_color)
 
         st.graphviz_chart(dot)
+
 
 
 
