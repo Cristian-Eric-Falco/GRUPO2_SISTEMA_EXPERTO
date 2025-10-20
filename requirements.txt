@@ -1,4 +1,4 @@
 streamlit
 experta
 graphviz
-frozendict>=2.3.0
+
