@@ -26,13 +26,13 @@ ruta_base = "imagenes/"
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.image(ruta_base + "ectomorfo.jpg", caption="Ectomorfo", use_container_width=True)
+    st.image(ruta_base + "ectomorfo.jpg", use_container_width=True)
 
 with col2:
-    st.image(ruta_base + "mesomorfo.jpg", caption="Mesomorfo", use_container_width=True)
+    st.image(ruta_base + "mesomorfo.jpg", use_container_width=True)
 
 with col3:
-    st.image(ruta_base + "endomorfo.jpg", caption="Endomorfo", use_container_width=True)
+    st.image(ruta_base + "endomorfo.jpg", use_container_width=True)
 
 # --- 3. NUEVO: Un separador visual ---
 st.divider() 
@@ -263,6 +263,7 @@ if submitted:
                 dot.edge(p_node, tipo_node, color=edge_color)
 
         st.graphviz_chart(dot)
+
 
 
 
