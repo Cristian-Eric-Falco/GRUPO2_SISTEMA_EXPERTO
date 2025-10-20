@@ -19,23 +19,12 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# --- 2. NUEVO: Banner de imágenes ---
-# Usamos las 3 imágenes que ya tienes en tu repositorio
-ruta_base = "imagenes/"
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.image(ruta_base + "ectomorfo.jpg", use_container_width=True)
-
-with col2:
-    st.image(ruta_base + "mesomorfo.jpg", use_container_width=True)
-
-with col3:
-    st.image(ruta_base + "endomorfo.jpg", use_container_width=True)
+# --- 2. NUEVO: Banner de imagen ---
+# Mostramos la nueva imagen de portada
+st.image("imagenes/somatotipos.jpg", use_container_width=True)
 
 # --- 3. NUEVO: Un separador visual ---
-st.divider() 
+st.divider()
 
 # --- 4. Texto de bienvenida (ligeramente más grande) ---
 st.markdown(
@@ -263,6 +252,7 @@ if submitted:
                 dot.edge(p_node, tipo_node, color=edge_color)
 
         st.graphviz_chart(dot)
+
 
 
 
