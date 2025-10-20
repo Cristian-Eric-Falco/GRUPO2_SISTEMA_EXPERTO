@@ -11,16 +11,16 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- 1. Título principal centrado (ahora con color) ---
+# --- Título principal  ---
 st.markdown(
     "<h1 style='text-align: center; color: #3498db;'>Clasificador de Somatotipos</h1>", 
     unsafe_allow_html=True
 )
 
-# --- 3. NUEVO: Un separador visual ---
+
 st.divider()
 
-# --- 4. Texto de bienvenida (ligeramente más grande) ---
+# --- Texto de bienvenida ---
 st.markdown(
     "<p style='text-align: center; font-size: 1.1em;'>Introduce tus medidas en el panel de la izquierda para comenzar.</p>", 
     unsafe_allow_html=True
@@ -246,6 +246,7 @@ if submitted:
                 dot.edge(p_node, tipo_node, color=edge_color)
 
         st.graphviz_chart(dot)
+
 
 
 
