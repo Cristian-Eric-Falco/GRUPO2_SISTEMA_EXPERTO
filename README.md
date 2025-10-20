@@ -1,4 +1,6 @@
-# Sistema experto que identifica tipo de cuerpo/somatotipo (ectomorfo, mesomorfo o endomorfo), a partir de variables de entrada dispuestas por el usuario.
+# TRABAJO PRACTICO: SISTEMAS EXPERTOS
+
+Sistema experto que identifica tipo de cuerpo/somatotipo (ectomorfo, mesomorfo o endomorfo), a partir de variables de entrada dispuestas por el usuario.
 
 
 Realizado con fines academicos, para la materia Analisis de datos 2: Sistemas expertos y redes de conocimiento
