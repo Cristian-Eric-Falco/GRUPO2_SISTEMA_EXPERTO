@@ -1,3 +1,8 @@
+import streamlit as st
+from engine import BodyTypeEngine
+from collections.abc import Mapping
+import graphviz
+
 st.set_page_config(
     page_title="Clasificador de Somatotipos",
     page_icon="🏋️",  # <-- ¡Añade un ícono!
@@ -222,5 +227,6 @@ if submitted:
             for tipo_node in tipos:
                 edge_color = "red" if p_node in trace and tipo_node in trace else "white"
                 dot.edge(p_node, tipo_node, color=edge_color)
+
 
         st.graphviz_chart(dot)
