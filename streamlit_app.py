@@ -74,15 +74,13 @@ if submitted:
         ["📊 Resultado Principal", "👣 Explicación Paso a Paso", "🌳 Árbol de Inferencia"]
     )
 
-    # --- Pestaña 1: Resultado y Foto ---
-    # --- Pestaña 1: Resultado y Foto ---
+    # --- Pestaña 1: Resultado, Foto y Consejos ---
     with tab_resultado:
 
         # --- Primer Contenedor: El Texto del Resultado ---
         with st.container(border=True):
             st.subheader("Resultado de la Clasificación")
 
-            # Rellenando el "... (etc.)"
             if tipo == 'ectomorfo':
                 st.success("Resultado: Ectomorfo")
             elif tipo == 'mesomorfo':
@@ -90,51 +88,43 @@ if submitted:
             elif tipo == 'endomorfo':
                 st.success("Resultado: Endomorfo")
             else:
-                st.info("Resultado: Indeterminado") # <-- El 'else' que faltaba
+                st.info("Resultado: Indeterminado")
 
         # --- Segundo Contenedor: La Imagen ---
+        # (Este bloque ahora está CORRECTAMENTE indentado dentro de 'with tab_resultado:')
         with st.container(border=True):
-
-            # Rellenando el "..." con 'unsafe_allow_html=True'
             st.markdown("<h3 style='text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
-
+            
+            ruta_base = "imagenes/" 
+            
             col1, col2, col3 = st.columns([1.3, 1, 1.3])
+            with col2:
+                if tipo in ['ectomorfo', 'mesomorfo', 'endomorfo']:
+                    st.image(ruta_base + f"{tipo}.jpg", use_container_width=True)
 
-    
-    with st.container(border=True):
-         st.markdown("<h3 style='text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
-        
-         ruta_base = "imagenes/" 
-        
-         col1, col2, col3 = st.columns([1.3, 1, 1.3])
-         with col2:
-             if tipo in ['ectomorfo', 'mesomorfo', 'endomorfo']:
-                
-                
-                 st.image(ruta_base + f"{tipo}.jpg", use_container_width=True)
+        # --- Tercer Contenedor: Recomendaciones ---
+        # (Este bloque ahora está CORRECTAMENTE indentado dentro de 'with tab_resultado:')
+        with st.expander("Ver recomendaciones de entrenamiento y nutrición 🏋️‍♂️"):
+            if tipo == 'ectomorfo':
+                st.markdown("""
+                **Objetivo Principal:** Ganar masa muscular.
+                * **Entrenamiento:** Enfócate en la fuerza y la hipertrofia. Usa ejercicios compuestos (sentadillas, peso muerto, press de banca). Descansa más entre series (2-3 min). Limita el cardio.
+                * **Nutrición:** Un superávit calórico es esencial. Prioriza carbohidratos complejos (avena, arroz, patata) y proteínas (1.8g-2.2g por kg de peso). No le temas a las grasas saludables.
+                """)
 
+            elif tipo == 'mesomorfo':
+                st.markdown("""
+                **Objetivo Principal:** Ganancia muscular limpia o recomposición.
+                * **Entrenamiento:** Una mezcla de fuerza (rangos de 5-8 repeticiones) e hipertrofia (8-15 repeticiones) es ideal. Puedes incluir más variedad y cardio moderado.
+                * **Nutrición:** Mantén un ligero superávit calórico o calorías de mantenimiento. Controla las porciones y enfócate en comida de calidad. Una dieta balanceada (40% carbos, 30% prot, 30% grasas) suele funcionar bien.
+                """)
 
-    with st.expander("Ver recomendaciones de entrenamiento y nutrición 🏋️‍♂️"):
-               if tipo == 'ectomorfo':
-                   st.markdown("""
-                   **Objetivo Principal:** Ganar masa muscular.
-                   * **Entrenamiento:** Enfócate en la fuerza y la hipertrofia. Usa ejercicios compuestos (sentadillas, peso muerto, press de banca). Descansa más entre series (2-3 min). Limita el cardio.
-                   * **Nutrición:** Un superávit calórico es esencial. Prioriza carbohidratos complejos (avena, arroz, patata) y proteínas (1.8g-2.2g por kg de peso). No le temas a las grasas saludables.
-                   """)
-
-               elif tipo == 'mesomorfo':
-                    st.markdown("""
-                   **Objetivo Principal:** Ganancia muscular limpia o recomposición.
-                   * **Entrenamiento:** Una mezcla de fuerza (rangos de 5-8 repeticiones) e hipertrofia (8-15 repeticiones) es ideal. Puedes incluir más variedad y cardio moderado.
-                   * **Nutrición:** Mantén un ligero superávit calórico o calorías de mantenimiento. Controla las porciones y enfócate en comida de calidad. Una dieta balanceada (40% carbos, 30% prot, 30% grasas) suele funcionar bien.
-                   """)
-
-               elif tipo == 'endomorfo':
-                   st.markdown("""
-                   **Objetivo Principal:** Pérdida de grasa y mantenimiento muscular.
-                   * **Entrenamiento:** La consistencia es clave. Aumenta tu NEAT (actividad diaria). El entrenamiento de fuerza es **fundamental** para mantener el músculo mientras pierdes grasa. Añade 2-3 sesiones de cardio (HIIT o LISS) por semana.
-                   * **Nutrición:** Necesitas un déficit calórico controlado. Eres más sensible a los carbohidratos; considera consumirlos cerca de tus entrenamientos. Prioriza la proteína alta (para saciedad y mantener músculo) y vegetales.
-                   """)
+            elif tipo == 'endomorfo':
+                st.markdown("""
+                **Objetivo Principal:** Pérdida de grasa y mantenimiento muscular.
+                * **Entrenamiento:** La consistencia es clave. Aumenta tu NEAT (actividad diaria). El entrenamiento de fuerza es **fundamental** para mantener el músculo mientras pierdes grasa. Añade 2-3 sesiones de cardio (HIIT o LISS) por semana.
+                * **Nutrición:** Necesitas un déficit calórico controlado. Eres más sensible a los carbohidratos; considera consumirlos cerca de tus entrenamientos. Prioriza la proteína alta (para saciedad y mantener músculo) y vegetales.
+                """)
 
     # --- Pestaña 2: Explicación ---
     with tab_explicacion:
@@ -145,14 +135,18 @@ if submitted:
     # --- Pestaña 3: Árbol de Inferencia ---
     with tab_arbol:
         st.subheader("Camino de Inferencia")
-
-        # --- CÓDIGO DE GRAPHVIZ MOVIDO AQUÍ DENTRO ---
+        
+        # (Aquí va todo tu código de 'import graphviz' y 'dot = ...')
+        # (Asegúrate de que esté indentado dentro de 'with tab_arbol:')
         import graphviz
-
         trace = trace_claves
         dot = graphviz.Digraph(comment='Árbol de inferencia', graph_attr={'rankdir': 'TB', 'bgcolor': 'black', 'fontcolor': 'white'}, node_attr={'fontcolor': 'white', 'color': 'white'}, edge_attr={'color': 'white'})
+        
+        # (...el resto de tu código de graphviz...)
+        
         dot.attr(label="Árbol de inferencia", labelloc='t', fontsize='24')
 
+        # Definiciones de Nodos
         nodes_def = {
             "start": {"label": "Inicio", "shape": "circle", "style": "filled", "fillcolor": "gray"},
             "masa_baja": {"label": "Masa < 30"},
@@ -168,7 +162,7 @@ if submitted:
             "endo": {"label": "ENDOMORFO", "style": "filled", "fillcolor": "white"}
         }
 
-        # (El resto de tu código de Graphviz va aquí, ya está correctamente indentado)
+        # Aplicar colores iniciales o de traza
         for key, attrs in nodes_def.items():
             if key in trace:
                 attrs['fillcolor'] = "red"
@@ -190,6 +184,7 @@ if submitted:
                 attrs['color'] = "white"
             dot.node(key, **attrs)
 
+        # Conexiones Jerárquicas y coloreo
         dot.edge("start", "masa_baja", color="red" if "masa_baja" in trace else "white")
         dot.edge("start", "masa_alta", color="red" if "masa_alta" in trace else "white")
 
@@ -207,6 +202,7 @@ if submitted:
                 edge_color = "red" if g in trace and p in trace else "white"
                 dot.edge(g, p, color=edge_color)
 
+        # Definición del diccionario 'combinaciones'
         combinaciones = {
             "ecto": [
                 ("masa_baja", "grasa_baja", "peso_bajo"),("masa_baja", "grasa_baja", "peso_medio"),
@@ -226,6 +222,7 @@ if submitted:
             ]
         }
 
+        # Conexiones Finales
         final_connections = {}
         for tipo_final, rutas in combinaciones.items():
             for (m, g, p) in rutas:
@@ -237,7 +234,6 @@ if submitted:
             for tipo_node in tipos:
                 edge_color = "red" if p_node in trace and tipo_node in trace else "white"
                 dot.edge(p_node, tipo_node, color=edge_color)
-
 
         st.graphviz_chart(dot)
 
