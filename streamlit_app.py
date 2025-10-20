@@ -19,10 +19,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# --- 2. NUEVO: Banner de imagen ---
-# Mostramos la nueva imagen de portada
-st.image("imagenes/somatotipos.jpg", use_container_width=True)
-
 # --- 3. NUEVO: Un separador visual ---
 st.divider()
 
@@ -252,6 +248,7 @@ if submitted:
                 dot.edge(p_node, tipo_node, color=edge_color)
 
         st.graphviz_chart(dot)
+
 
 
 
