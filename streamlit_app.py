@@ -8,14 +8,41 @@ from collections.abc import Mapping
 import graphviz
 
 st.set_page_config(
-    page_title="Clasificador de Somatotipos",
-    page_icon="🏋️",  # <-- ¡Añade un ícono!
+    page_title="Clasificador de Somatotipos", 
+    page_icon="🏋️", 
     layout="centered"
 )
 
-# Título principal centrado
-st.markdown("<h1 style='text-align: center;'>Clasificador de Somatotipos</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Introduce tus medidas en el panel de la izquierda para comenzar.</p>", unsafe_allow_html=True)
+# --- 1. Título principal centrado (ahora con color) ---
+st.markdown(
+    "<h1 style='text-align: center; color: #3498db;'>Clasificador de Somatotipos</h1>", 
+    unsafe_allow_html=True
+)
+
+# --- 2. NUEVO: Banner de imágenes ---
+# Usamos las 3 imágenes que ya tienes en tu repositorio
+ruta_base = "imagenes/"
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.image(ruta_base + "ectomorfo.jpg", caption="Ectomorfo", use_container_width=True)
+
+with col2:
+    st.image(ruta_base + "mesomorfo.jpg", caption="Mesomorfo", use_container_width=True)
+
+with col3:
+    st.image(ruta_base + "endomorfo.jpg", caption="Endomorfo", use_container_width=True)
+
+# --- 3. NUEVO: Un separador visual ---
+st.divider() 
+
+# --- 4. Texto de bienvenida (ligeramente más grande) ---
+st.markdown(
+    "<p style='text-align: center; font-size: 1.1em;'>Introduce tus medidas en el panel de la izquierda para comenzar.</p>", 
+    unsafe_allow_html=True
+)
+
 
 with st.sidebar:
     st.header("Introduce tus datos 📝")
@@ -236,6 +263,7 @@ if submitted:
                 dot.edge(p_node, tipo_node, color=edge_color)
 
         st.graphviz_chart(dot)
+
 
 
 
