@@ -1,3 +1,5 @@
+from experta import *
+
 class Body(Fact):
     """Hecho inicial con medidas corporales"""
     pass
@@ -122,4 +124,5 @@ class BodyTypeEngine(KnowledgeEngine):
         self.declare(Body(peso=peso, masa_muscular=masa_muscular, grasa=grasa))
         self.run()
         # Devuelve el tipo, los mensajes y las claves
+
         return self.tipo_final or 'indeterminado', self.trace_msgs, self.trace_keys
