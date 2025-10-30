@@ -24,6 +24,8 @@ Integrantes:
 
 Modo de uso:
 
-1- Clonar repositorio del sistema experto.
-2- Registrarse en https://streamlit.io/.
-3- Enlazar repositorio a tu cuenta de streamlit e inicializar la aplicacion.
+1- Clonar repositorio del sistema experto
+
+2- Registrarse en https://streamlit.io/
+
+3- Enlazar repositorio a tu cuenta de streamlit e inicializar la aplicacion
