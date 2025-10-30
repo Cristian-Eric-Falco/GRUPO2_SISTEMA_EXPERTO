@@ -11,50 +11,39 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- Título principal  ---
+# --- Título principal (Siempre visible) ---
 st.markdown(
     "<h1 style='text-align: center; color: #3498db;'>Clasificador de Somatotipos</h1>", 
     unsafe_allow_html=True
 )
 
-
-st.divider()
-
-# --- Texto de bienvenida ---
-st.markdown(
-    "<p style='text-align: center; font-size: 1.1em;'>Introduce tus medidas en el panel de la izquierda para comenzar.</p>", 
-    unsafe_allow_html=True
-)
-
-
+# --- Contenido de la Sidebar (Siempre visible) ---
+# (Es importante mover esto ANTES del 'if' para que 'submitted' exista)
 with st.sidebar:
     st.header("Introduce tus datos 📝")
 
-
     with st.form("input_form"):
-        # CORREGIDO: Restauramos los parámetros numéricos
         peso = st.number_input(
             "Peso (kg)",
-            min_value=20.0,
-            max_value=250.0,
-            value=70.0,
+            min_value=20.0, 
+            max_value=250.0, 
+            value=70.0, 
             step=0.5
         )
         masa_muscular = st.number_input(
             "Masa muscular estimada (%)",
-            min_value=5.0,
-            max_value=60.0,
-            value=32.0,
+            min_value=5.0, 
+            max_value=60.0, 
+            value=32.0, 
             step=0.5
         )
         grasa = st.number_input(
             "Nivel de grasa corporal estimado (%)",
-            min_value=3.0,
-            max_value=60.0,
-            value=18.0,
+            min_value=3.0, 
+            max_value=60.0, 
+            value=18.0, 
             step=0.5
         )
-
         submitted = st.form_submit_button("Evaluar")
 
     with st.expander("ℹ️ Sobre este Proyecto"):
@@ -75,8 +64,13 @@ with st.sidebar:
         """)
 
 
+# --- Lógica principal de la pantalla ---
+# (Esto decide si mostrar la Portada o los Resultados)
 
 if submitted:
+    # --- PANTALLA DE RESULTADOS ---
+    # (El usuario hizo clic en "Evaluar")
+    
     engine = BodyTypeEngine()
     tipo, trace_mensajes, trace_claves = engine.classify(peso=peso, masa_muscular=masa_muscular, grasa=grasa)
 
@@ -86,11 +80,10 @@ if submitted:
 
     # --- Pestaña 1: Resultado, Foto y Consejos ---
     with tab_resultado:
-
-        # --- Primer Contenedor: El Texto del Resultado ---
+        # (Tu código de resultados va aquí...)
         with st.container(border=True):
             st.subheader("Resultado de la Clasificación")
-
+            # ... (if tipo == 'ectomorfo': ... etc)
             if tipo == 'ectomorfo':
                 st.success("Resultado: Ectomorfo")
             elif tipo == 'mesomorfo':
@@ -100,35 +93,28 @@ if submitted:
             else:
                 st.info("Resultado: Indeterminado")
 
-        # --- Segundo Contenedor: La Imagen ---
-        # (Este bloque ahora está CORRECTAMENTE indentado dentro de 'with tab_resultado:')
         with st.container(border=True):
             st.markdown("<h3 style='text-align: center;'>Visualización</h3>", unsafe_allow_html=True)
-            
             ruta_base = "imagenes/" 
-            
             col1, col2, col3 = st.columns([1.3, 1, 1.3])
             with col2:
                 if tipo in ['ectomorfo', 'mesomorfo', 'endomorfo']:
                     st.image(ruta_base + f"{tipo}.jpg", use_container_width=True)
-
-        # --- Tercer Contenedor: Recomendaciones ---
-        # (Este bloque ahora está CORRECTAMENTE indentado dentro de 'with tab_resultado:')
+        
         with st.expander("Ver recomendaciones de entrenamiento y nutrición 🏋️‍♂️"):
+            # ... (tu código de recomendaciones aquí) ...
             if tipo == 'ectomorfo':
                 st.markdown("""
                 **Objetivo Principal:** Ganar masa muscular.
                 * **Entrenamiento:** Enfócate en la fuerza y la hipertrofia. Usa ejercicios compuestos (sentadillas, peso muerto, press de banca). Descansa más entre series (2-3 min). Limita el cardio.
                 * **Nutrición:** Un superávit calórico es esencial. Prioriza carbohidratos complejos (avena, arroz, patata) y proteínas (1.8g-2.2g por kg de peso). No le temas a las grasas saludables.
                 """)
-
             elif tipo == 'mesomorfo':
                 st.markdown("""
                 **Objetivo Principal:** Ganancia muscular limpia o recomposición.
                 * **Entrenamiento:** Una mezcla de fuerza (rangos de 5-8 repeticiones) e hipertrofia (8-15 repeticiones) es ideal. Puedes incluir más variedad y cardio moderado.
                 * **Nutrición:** Mantén un ligero superávit calórico o calorías de mantenimiento. Controla las porciones y enfócate en comida de calidad. Una dieta balanceada (40% carbos, 30% prot, 30% grasas) suele funcionar bien.
                 """)
-
             elif tipo == 'endomorfo':
                 st.markdown("""
                 **Objetivo Principal:** Pérdida de grasa y mantenimiento muscular.
@@ -145,18 +131,11 @@ if submitted:
     # --- Pestaña 3: Árbol de Inferencia ---
     with tab_arbol:
         st.subheader("Camino de Inferencia")
-        
-        # (Aquí va todo tu código de 'import graphviz' y 'dot = ...')
-        # (Asegúrate de que esté indentado dentro de 'with tab_arbol:')
+        # (Tu código de graphviz va aquí)
         import graphviz
         trace = trace_claves
         dot = graphviz.Digraph(comment='Árbol de inferencia', graph_attr={'rankdir': 'TB', 'bgcolor': 'black', 'fontcolor': 'white'}, node_attr={'fontcolor': 'white', 'color': 'white'}, edge_attr={'color': 'white'})
-        
-        # (...el resto de tu código de graphviz...)
-        
         dot.attr(label="Árbol de inferencia", labelloc='t', fontsize='24')
-
-        # Definiciones de Nodos
         nodes_def = {
             "start": {"label": "Inicio", "shape": "circle", "style": "filled", "fillcolor": "gray"},
             "masa_baja": {"label": "Masa < 30"},
@@ -171,8 +150,6 @@ if submitted:
             "meso": {"label": "MESOMORFO", "style": "filled", "fillcolor": "white"},
             "endo": {"label": "ENDOMORFO", "style": "filled", "fillcolor": "white"}
         }
-
-        # Aplicar colores iniciales o de traza
         for key, attrs in nodes_def.items():
             if key in trace:
                 attrs['fillcolor'] = "red"
@@ -193,26 +170,19 @@ if submitted:
                 attrs.pop('fillcolor', None)
                 attrs['color'] = "white"
             dot.node(key, **attrs)
-
-        # Conexiones Jerárquicas y coloreo
         dot.edge("start", "masa_baja", color="red" if "masa_baja" in trace else "white")
         dot.edge("start", "masa_alta", color="red" if "masa_alta" in trace else "white")
-
         masa_nodes = ["masa_baja", "masa_alta"]
         grasa_nodes = ["grasa_baja", "grasa_media", "grasa_alta"]
         peso_nodes = ["peso_bajo", "peso_medio", "peso_alto"]
-
         for m in masa_nodes:
             for g in grasa_nodes:
                 edge_color = "red" if m in trace and g in trace else "white"
                 dot.edge(m, g, color=edge_color)
-
         for g in grasa_nodes:
             for p in peso_nodes:
                 edge_color = "red" if g in trace and p in trace else "white"
                 dot.edge(g, p, color=edge_color)
-
-        # Definición del diccionario 'combinaciones'
         combinaciones = {
             "ecto": [
                 ("masa_baja", "grasa_baja", "peso_bajo"),("masa_baja", "grasa_baja", "peso_medio"),
@@ -231,24 +201,51 @@ if submitted:
                 ("masa_alta", "grasa_alta", "peso_medio"),("masa_alta", "grasa_alta", "peso_alto"),
             ]
         }
-
-        # Conexiones Finales
         final_connections = {}
         for tipo_final, rutas in combinaciones.items():
             for (m, g, p) in rutas:
                 if p not in final_connections:
                     final_connections[p] = set()
                 final_connections[p].add(tipo_final)
-
         for p_node, tipos in final_connections.items():
             for tipo_node in tipos:
                 edge_color = "red" if p_node in trace and tipo_node in trace else "white"
                 dot.edge(p_node, tipo_node, color=edge_color)
-
         st.graphviz_chart(dot)
 
+else:
+    # --- PANTALLA DE BIENVENIDA ---
+    # (Se muestra ANTES de presionar "Evaluar")
 
+    # 1. Tu imagen de portada
+    st.image("imagenes/somatotipos.jpg", use_container_width=True)
+    st.divider()
 
+    # 2. AQUÍ VA EL NUEVO FRAGMENTO DE CÓDIGO
+    with st.container(border=True):
+        st.markdown("🎯 **Objetivo del Proyecto**")
+        st.write("""
+        Esta aplicación es un sistema experto diseñado para identificar tu somatotipo (Ectomorfo, Mesomorfo o Endomorfo) basándose en un conjunto de reglas.
+        """)
+        
+        st.markdown("⚠️ **Nuestro Enfoque**")
+        st.write("""
+        Esta clasificación no busca etiquetar o cuestionar tu cuerpo.
+        Nuestro enfoque es que la utilices como una **herramienta positiva** para entender tus tendencias naturales y, si lo deseas, adaptar tus rutinas de nutrición y entrenamiento para aprovechar tus cualidades innatas.
+        """)
+        
+        st.markdown("---") # Un separador visual
+        st.markdown("📚 **Recursos Adicionales**")
+        st.markdown("""
+        * **[Artículo: ¿Qué son los somatotipos? (enlace de referencia)](https://www.webconsultas.com/belleza-y-bienestar/fitness/somatotipo-que-es-y-como-identificar-el-tuyo)**
+        * **[Ver el código de este proyecto en GitHub](https://github.com/Cristian-Eric-Falco/GRUPO2_SISTEMA_EXPERTO)**
+        """)
+
+    # 3. Tu texto de "call to action"
+    st.markdown(
+        "<p style='text-align: center; font-size: 1.1em;'>Introduce tus medidas en el panel de la izquierda para comenzar.</p>", 
+        unsafe_allow_html=True
+    )
 
 
 
