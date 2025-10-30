@@ -237,7 +237,7 @@ else:
         st.markdown("---") # Un separador visual
         st.markdown("📚 **Recursos Adicionales**")
         st.markdown("""
-        * **[Artículo: ¿Qué son los somatotipos? (enlace de referencia)](https://www.webconsultas.com/belleza-y-bienestar/fitness/somatotipo-que-es-y-como-identificar-el-tuyo)**
+        * **[Artículo: ¿Qué son los somatotipos? (enlace de referencia)](https://www.acefitness.org/resources/everyone/blog/5078/the-truth-about-eating-and-training-with-an-endomorph-body-type/)**
         * **[Ver el código de este proyecto en GitHub](https://github.com/Cristian-Eric-Falco/GRUPO2_SISTEMA_EXPERTO)**
         """)
 
@@ -246,6 +246,7 @@ else:
         "<p style='text-align: center; font-size: 1.1em;'>Introduce tus medidas en el panel de la izquierda para comenzar.</p>", 
         unsafe_allow_html=True
     )
+
 
 
 
