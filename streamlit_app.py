@@ -11,13 +11,13 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- Título principal (Siempre visible) ---
+# --- Título principal ---
 st.markdown(
     "<h1 style='text-align: center; color: #3498db;'>Clasificador de Somatotipos</h1>", 
     unsafe_allow_html=True
 )
 
-# --- Contenido de la Sidebar (Siempre visible) ---
+# --- Contenido de la Sidebar ---
 # (Es importante mover esto ANTES del 'if' para que 'submitted' exista)
 with st.sidebar:
     st.header("Introduce tus datos 📝")
@@ -65,11 +65,11 @@ with st.sidebar:
 
 
 # --- Lógica principal de la pantalla ---
-# (Esto decide si mostrar la Portada o los Resultados)
+
 
 if submitted:
     # --- PANTALLA DE RESULTADOS ---
-    # (El usuario hizo clic en "Evaluar")
+   
     
     engine = BodyTypeEngine()
     tipo, trace_mensajes, trace_claves = engine.classify(peso=peso, masa_muscular=masa_muscular, grasa=grasa)
@@ -215,13 +215,13 @@ if submitted:
 
 else:
     # --- PANTALLA DE BIENVENIDA ---
-    # (Se muestra ANTES de presionar "Evaluar")
 
-    # 1. Tu imagen de portada
+
+    # 1. Imagen de portada
     st.image("imagenes/somatotipos.jpg", use_container_width=True)
     st.divider()
 
-    # 2. AQUÍ VA EL NUEVO FRAGMENTO DE CÓDIGO
+
     with st.container(border=True):
         st.markdown("🎯 **Objetivo del Proyecto**")
         st.write("""
@@ -241,11 +241,12 @@ else:
         * **[Ver el código de este proyecto en GitHub](https://github.com/Cristian-Eric-Falco/GRUPO2_SISTEMA_EXPERTO)**
         """)
 
-    # 3. Tu texto de "call to action"
+  
     st.markdown(
         "<p style='text-align: center; font-size: 1.1em;'>Introduce tus medidas en el panel de la izquierda para comenzar.</p>", 
         unsafe_allow_html=True
     )
+
 
 
 
